@@ -1,9 +1,17 @@
 import React from 'react';
-import {View, Text, ImageBackground, navigation} from 'react-native';
+import {View, Text, ImageBackground } from 'react-native';
 import StyledButton from "../StyledButton";
-import cardetails from "./cardetails";
-import styles from './styles';
 
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';
+import home from './cardetails';
+import styles from './styles';
+const screens={
+  home:{
+    screen:home
+  }
+}
+const homeStack=createStackNavigator(screens);
 const CarItem = (props) => {
 
   const { name, tagline, taglineCTA, image } = props.car;
@@ -38,13 +46,16 @@ const CarItem = (props) => {
         <StyledButton
           type="secondary"
           content={"About US"}
-          onPress={() => navigation.navigate('cardetails')}
+          onPress={() => this.props.navigation.navigate('cardetails')}
         />
       </View>
 
     </View>
   );
 };
-
+const AppStackNavigator=createStackNavigator({
+  cardetails:cardetails
+});
 export default CarItem;
+export default createAppContainer(homeStack);
 
